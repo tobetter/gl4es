@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -x
+
+ln -s /usr/lib/@@DEB_HOST_MULTIARCH@@/libGL.so.@@VERSION@@ \
+	/usr/lib/@@DEB_HOST_MULTIARCH@@/libGL.so.1
+ln -s /usr/lib/@@DEB_HOST_MULTIARCH@@/libGL.so.1 \
+	/usr/lib/@@DEB_HOST_MULTIARCH@@/libGL.so
+
+cat>/etc/profile.d/gles.sh<<__EOF
+export LIBGL_EGL=/usr/lib/@@DEB_HOST_MULTIARCH@@/libmali.so
+export LIBGL_GLES=/usr/lib/@@DEB_HOST_MULTIARCH@@/libmali.so
+export LIBGL_FB=1
+export LIBGL_GL=21
+export LIBGL_XREFRESH=1
+__EOF

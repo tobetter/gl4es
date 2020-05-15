@@ -1,0 +1,24 @@
+Source: gl4es
+Priority: optional
+Maintainer: Dongjin Kim <tobetter@gmail.com>
+Uploaders: Dongjin Kim <tobetter@gmail.com>
+Build-Depends: debhelper (>= 10), cmake, libx11-dev
+Standards-Version: 4.1.2
+Section: libs
+HomePage: https://github.com/tobetter/gl4es
+Vcs-Git: https://github.com/tobetter/gl4es.git
+Vcs-Browser: https://github.com/tobetter/gl4es.git
+
+Package: libgl1
+Architecture: armhf arm64
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends},
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Provides: libgl1, libglvnd0, libglx0
+Replaces: libgl1, libglvnd0, libglx0
+Description: GL4ES - OpenGL for GLES Hardware
+  GL4ES is a OpenGL 2.1/1.5 to GL ES 2.0/1.1 translation library,
+  with support for Pandora, ODroid, OrangePI, CHIP, Raspberry PI,
+  Android, Emscripten and AmigaOS4.

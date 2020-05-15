@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+export VERSION=1.1.3
+export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	@for f in debian/libgl1.install debian/libgl1.postinst; do \
+		sed -e "s/@@DEB_HOST_MULTIARCH@@/$(DEB_HOST_MULTIARCH)/g" \
+			-e "s/@@VERSION@@/$(VERSION)/g" $$f.in > $$f; \
+	done
+	dh_auto_configure -- -DODROID=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+override_dh_auto_test:
+override_dh_auto_install:
+	@if [ -f lib/libGL.so.1 ]; then \
+		mv lib/libGL.so.1 lib/libGL.so.$(VERSION); \
+	else \
+		mkdir -p lib; \
+		mv obj-$(DEB_HOST_MULTIARCH)/lib/libGL.so.1 lib/libGL.so.$(VERSION); \
+	fi
+	dh_auto_install
